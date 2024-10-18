@@ -46,7 +46,7 @@ public class OnePassSCSqlGenStrategy extends SqlGenStrategy {
             + "\n8.ALWAYS enclose alias created by `AS` command in underscores."
             + "\n9.ALWAYS translate alias created by `AS` command to the same language as the `#Question`."
             + "\n#Exemplars: {{exemplar}}"
-            + "\n#Question: Question:{{question}},Schema:{{schema}},SideInfo:{{information}}";
+            + "\n#Query: Question:{{question}},Schema:{{schema}},SideInfo:{{information}}";
 
     public OnePassSCSqlGenStrategy() {
         ChatAppManager.register(APP_KEY, ChatApp.builder().prompt(INSTRUCTION).name("语义SQL解析")
@@ -92,7 +92,8 @@ public class OnePassSCSqlGenStrategy extends SqlGenStrategy {
         prompt2Exemplar.keySet().parallelStream().forEach(prompt -> {
             SemanticSql s2Sql = extractor.generateSemanticSql(prompt.toUserMessage().singleText());
             output2Prompt.put(s2Sql.getSql(), prompt);
-            keyPipelineLog.info("OnePassSCSqlGenStrategy modelReq:\n{} \nmodelResp:\n{}", prompt.text(), s2Sql);
+            keyPipelineLog.info("OnePassSCSqlGenStrategy modelReq:\n{} \nmodelResp:\n{}",
+                    prompt.text(), s2Sql);
         });
 
         // 4.format response.
