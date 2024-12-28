@@ -26,7 +26,7 @@ public class DefaultSemanticTranslator implements SemanticTranslator {
             return;
         }
         try {
-            for (QueryParser parser : ComponentFactory.getQueryParser()) {
+            for (QueryParser parser : ComponentFactory.getQueryParsers()) {
                 if (parser.accept(queryStatement)) {
                     log.debug("QueryConverter accept [{}]", parser.getClass().getName());
                     parser.parse(queryStatement);

@@ -40,9 +40,8 @@ public class DefaultDimValueParser implements QueryParser {
             return;
         }
         String sql = queryStatement.getSqlQuery().getSql();
-        List<String> whereFields = SqlSelectHelper.getWhereFields(sql).stream()
-                .filter(field -> !TimeDimensionEnum.containsTimeDimension(field))
-                .collect(Collectors.toList());
+        List<String> whereFields =
+                SqlSelectHelper.getWhereFields(sql).stream().collect(Collectors.toList());
         if (!CollectionUtils.isEmpty(whereFields)) {
             return;
         }
